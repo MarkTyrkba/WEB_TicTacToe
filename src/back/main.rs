@@ -1,5 +1,4 @@
 //main.rs
-
 mod game;
 
 use game::tictactoe::tictactoe::TicTacToe as TicTacToe;
@@ -11,6 +10,13 @@ use serde_json::json;
 use serde::{Serialize, Deserialize};
 use std::sync::{Arc, Mutex};
 use log::{error, info};
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+struct UserData  {
+    row: usize,
+    col: usize,
+    player: char
+}
 
 #[derive(Default)]
 struct AppState {
@@ -60,13 +66,6 @@ async fn get_position(data: web::Json<UserData>, app_state: web::Data<Arc<AppSta
         }
     }
     else { HttpResponse::InternalServerError().json(json!({"Error": GameError::InvalidMove(String::from("Cell already occupied or out of bounds")).to_string()}))}
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-struct UserData  {
-    row: usize,
-    col: usize,
-    player: char
 }
 
 #[post("/clear")]
