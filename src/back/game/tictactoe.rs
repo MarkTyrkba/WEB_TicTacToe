@@ -36,7 +36,7 @@ impl TicTacToe {
             self.board[row][col] = player;
             Ok(())
         } else
-            { Err(GameError::InvalidMove("Cell already occupied or out of bounds".to_string())) }
+            { Err(GameError::InvalidMove(String::from("Cell already occupied or out of bounds"))) }
     }
 
     pub fn is_over(&self) -> Option<char> {
